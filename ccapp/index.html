@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="cre" style="width:100px;height:50px;"><span id="creNum"></span>枚作る</button>
+    <div>
+    <img  id="cImage" src="images/sweets_cookie.png" width="100px" height="100px" alt="クッキー" />
+    <span id="result">×0</span>
+    </div>
+    <button id="buy">クッキー焼き機を購入(50枚)</button>
+    <div id="renji"></div>
+    <script>
+        var count=0;
+        var price1=50;
+        const b1= document.getElementById("cre");
+        const buy= document.getElementById("buy");
+        const result = document.getElementById("result");
+        var sum =0;
+        const number = document.getElementById("creNum");
+        cre.x=1;
+        number.textContent=cre.x;
+        cre.addEventListener("click",()=>{
+            sum += cre.x;
+            result.textContent=`×${sum}枚`;
+        });
+        buy.addEventListener("click",()=>{
+        if(sum>=price1){
+            count +=1;
+            sum -=price1;
+            cre.x +=1;
+            price1 =50*(count+1)*(count+1);
+
+            buy.textContent=`クッキー焼き機を購入(${price1}枚)`
+        number.textContent=b1.x;
+            result.textContent=`×${sum}枚`;
+        let renji_img=document.createElement("img");
+        const renji=document.getElementById("renji");
+        renji_img.src="images/oven_renji.png";
+        renji_img.style="width:100px";
+        renji_img.style="height:100px";
+        renji.append(renji_img);
+        }
+        });
+
+    </script>
+    
+</body>
+</html>
