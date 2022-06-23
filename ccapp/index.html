@@ -7,32 +7,39 @@
     <title>くっきいくりっかあ</title>
 </head>
 <body>
-    <button id="cre" style="width:100px;height:50px;"><span id="creNum"></span>枚作る</button>
+    <button id="cre" style="width:200px;height:100px;"><span id="creNum"></span>枚作る</button>
     <div>
     <img  id="cImage" src="images/sweets_cookie.png" width="100px" height="100px" alt="クッキー" />
-    <span id="result">×0</span>
+    <font size="6"><span id="result">×0</span></font>
     </div>
     <button id="buy">クッキー焼き機を購入(50枚)</button>
-    <a>(+3枚/1クリック)</a>
+    <a>(クリック生成効率↑)</a>
     <div id="renji"></div>
     </div>
     <div>
     <button id="buy2">博士を購入(50枚)</button>
-    <a>(+3枚/1秒)</a>
+    <a>(クッキー自動生成)</a>
     <div id="hakase"></div>
     </div>
+    <div>
+        <button id="buy3">女王様を購入(10000枚)</button>
+        <a>(博士の自動生成効率↑)</a>
+        <div id="smj"></div>
+        </div>
     <div id="sec"></div>
     <script>
         var renjiNum=0;
         var hakaseNum=0;
+        var smjNum=0;
         var renjiPrice=50;
         var hakasePrice=50;
+        var smjPrice=50;
         var sec =0;
         const b1= document.getElementById("cre");
         const DOMsec= document.getElementById("sec");
         const buy= document.getElementById("buy");
         const result = document.getElementById("result");
-        var sum =0;
+        var sum =20000;
         const number = document.getElementById("creNum");
         cre.x=1;
         number.textContent=cre.x;
@@ -69,10 +76,27 @@
             result.textContent=`×${sum}枚`;
         let hakase_img=document.createElement("img");
         const hakase=document.getElementById("hakase");
-        hakase_img.src="images/science_hakase_shippai.png";
+        hakase_img.src="images/hakase1_smile.png";
         hakase_img.style="width:100px";
         hakase_img.style="height:100px";
         hakase.append(hakase_img);
+        }
+        });
+        buy3.addEventListener("click",()=>{
+        if(sum>=smjPrice){
+            smjNum +=1;
+            sum -=smjPrice;
+            smjPrice =10000*(smjNum+1)*(smjNum+1);
+
+            buy3.textContent=`女王様を購入(${smjPrice}枚)`
+        number.textContent=b1.x;
+            result.textContent=`×${sum}枚`;
+        let smj_img=document.createElement("img");
+        const smj=document.getElementById("smj");
+        smj_img.src="images/smj.png";
+        smj_img.style="width:100px";
+        smj_img.style="height:100px";
+        smj.append(smj_img);
         }
         });
         const countSec=()=>{
@@ -81,7 +105,7 @@
         };
         setInterval(countSec,1000);
         const hakaseWork=()=>{
-            sum +=hakaseNum*3;
+            sum +=hakaseNum*3*(smjNum+1);
             result.textContent=`×${sum}枚`;
         }
         setInterval(hakaseWork,1000);
