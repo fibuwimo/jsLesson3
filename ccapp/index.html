@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>くっきいくりっかあ</title>
 </head>
 <body>
     <button id="cre" style="width:100px;height:50px;"><span id="creNum"></span>枚作る</button>
@@ -13,11 +13,23 @@
     <span id="result">×0</span>
     </div>
     <button id="buy">クッキー焼き機を購入(50枚)</button>
+    <a>(+3枚/1クリック)</a>
     <div id="renji"></div>
+    </div>
+    <div>
+    <button id="buy2">博士を購入(50枚)</button>
+    <a>(+3枚/1秒)</a>
+    <div id="hakase"></div>
+    </div>
+    <div id="sec"></div>
     <script>
-        var count=0;
-        var price1=50;
+        var renjiNum=0;
+        var hakaseNum=0;
+        var renjiPrice=50;
+        var hakasePrice=50;
+        var sec =0;
         const b1= document.getElementById("cre");
+        const DOMsec= document.getElementById("sec");
         const buy= document.getElementById("buy");
         const result = document.getElementById("result");
         var sum =0;
@@ -29,13 +41,13 @@
             result.textContent=`×${sum}枚`;
         });
         buy.addEventListener("click",()=>{
-        if(sum>=price1){
-            count +=1;
-            sum -=price1;
-            cre.x +=1;
-            price1 =50*(count+1)*(count+1);
+        if(sum>=renjiPrice){
+            renjiNum +=1;
+            sum -=renjiPrice;
+            cre.x +=3;
+            renjiPrice =50*(renjiNum+1)*(renjiNum+1);
 
-            buy.textContent=`クッキー焼き機を購入(${price1}枚)`
+            buy.textContent=`クッキー焼き機を購入(${renjiPrice}枚)`
         number.textContent=b1.x;
             result.textContent=`×${sum}枚`;
         let renji_img=document.createElement("img");
@@ -46,6 +58,34 @@
         renji.append(renji_img);
         }
         });
+        buy2.addEventListener("click",()=>{
+        if(sum>=hakasePrice){
+            hakaseNum +=1;
+            sum -=hakasePrice;
+            hakasePrice =50*(hakaseNum+1)*(hakaseNum+1);
+
+            buy2.textContent=`博士を購入(${hakasePrice}枚)`
+        number.textContent=b1.x;
+            result.textContent=`×${sum}枚`;
+        let hakase_img=document.createElement("img");
+        const hakase=document.getElementById("hakase");
+        hakase_img.src="images/science_hakase_shippai.png";
+        hakase_img.style="width:100px";
+        hakase_img.style="height:100px";
+        hakase.append(hakase_img);
+        }
+        });
+        const countSec=()=>{
+            sec++;
+            DOMsec.textContent=`${sec}秒`
+        };
+        setInterval(countSec,1000);
+        const hakaseWork=()=>{
+            sum +=hakaseNum*3;
+            result.textContent=`×${sum}枚`;
+        }
+        setInterval(hakaseWork,1000);
+
 
     </script>
     
