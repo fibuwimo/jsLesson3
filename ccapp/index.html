@@ -34,10 +34,15 @@
         </div>
     <div id="sec" style="margin-top:40px;"></div>
     </div>
-    <div>
+    <div style="width:300px;">
         <p>テスト用div</p>
         <p>ここで何か買えるようにしたい</p>
         <p>めんどい</p>
+    <div>
+        <button id="buy4">ガチャ(10000枚)</button>
+        <a>(闇)</a>
+        <div id="gacha"></div>
+        </div>
     </div>
     </div>
     <script>
@@ -54,13 +59,25 @@
         var hakasePrice=50;
         var smjPrice=50;
         var sec =0;
+        const gachaImgs =[
+            "number_1.png",
+            "number_2.png",
+            "number_3.png",
+            "kaichu_dokei.png"
+        ];
+        const gachaHaving=[
+            0,
+            0,
+            0,
+            0,
+        ];
         const cre= document.getElementById("cre");
         const DOMsec= document.getElementById("sec");
         const buy= document.getElementById("buy");
         const result = document.getElementById("result");
         const infoCkick =document.getElementById("infoClick");
         const infoAuto =document.getElementById("infoAuto");
-        var sum =20000;
+        var sum =200000;
         const number = document.getElementById("creNum");
         cre.x=1;
         number.textContent=cre.x;
@@ -126,16 +143,34 @@
         infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/秒)`
         }
         });
+        buy4.addEventListener("click",()=>{
+            if(sum>=10000){
+                sum -=10000;
+                let idx=Math.floor(Math.random() *(gachaHaving.length))
+                gachaHaving[idx]+=1;
+        hakaseInterval = 1000*(Math.pow(0.9,gachaHaving[3]))
+        let gacha_img=document.createElement("img");
+        const gacha=document.getElementById("gacha");
+        gacha_img.src=`images/${gachaImgs[idx]}`;
+        gacha_img.style="width:50px";
+        gacha_img.style="height:50px";
+        gacha.append(gacha_img);
+            }
+        });
         const countSec=()=>{
             sec++;
             DOMsec.textContent=`${sec}秒`
         };
         setInterval(countSec,1000);
+
         const hakaseWork=()=>{
+            console.log(gachaHaving[3]);
+            console.log(hakaseInterval)
             sum +=hakaseNum*3*(smjNum+1);
             result.textContent=`×${sum}枚`;
         }
-        setInterval(hakaseWork,1000);
+        let hakaseInterval=1000;
+        setInterval(hakaseWork,hakaseInterval);
 
 
     </script>
