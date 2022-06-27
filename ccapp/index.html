@@ -59,6 +59,7 @@
         var hakasePrice=50;
         var smjPrice=50;
         var sec =0;
+        let timeId;
         const gachaImgs =[
             "number_1.png",
             "number_2.png",
@@ -78,6 +79,7 @@
         const infoCkick =document.getElementById("infoClick");
         const infoAuto =document.getElementById("infoAuto");
         var sum =200000;
+        let hakaseInterval=1000;
         const number = document.getElementById("creNum");
         cre.x=1;
         number.textContent=cre.x;
@@ -148,7 +150,10 @@
                 sum -=10000;
                 let idx=Math.floor(Math.random() *(gachaHaving.length))
                 gachaHaving[idx]+=1;
-        hakaseInterval = 1000*(Math.pow(0.9,gachaHaving[3]))
+        hakaseInterval = 1000*(Math.pow(0.9,gachaHaving[3]));
+        clearInterval(timeId);
+        timeId=setInterval(hakaseWork,hakaseInterval);
+
         let gacha_img=document.createElement("img");
         const gacha=document.getElementById("gacha");
         gacha_img.src=`images/${gachaImgs[idx]}`;
@@ -169,8 +174,7 @@
             sum +=hakaseNum*3*(smjNum+1);
             result.textContent=`×${sum}枚`;
         }
-        let hakaseInterval=1000;
-        setInterval(hakaseWork,hakaseInterval);
+        timeId=setInterval(hakaseWork,hakaseInterval);
 
 
     </script>
