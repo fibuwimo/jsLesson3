@@ -7,11 +7,17 @@
     <title>くっきいくりっかあ</title>
 </head>
 <body>
-    <button id="cre" style="width:200px;height:100px;"><span id="creNum"></span>枚作る</button>
-    <div>
+    <div style="display:flex;">
+    <div style="width:400px;">
+    <button type="button" id="cre" style="width:200px;height:100px;"><span id="creNum"></span>枚作る</button>
+    <div style="margin-bottom:20px;">
     <img  id="cImage" src="images/sweets_cookie.png" width="100px" height="100px" alt="クッキー" />
     <font size="6"><span id="result">×0</span></font>
+    <br>
+    <font size="4"><span id="infoClick">(1枚/クリック)　</span></font>
+    <font size="4"><span id="infoAuto">(0枚/秒)</span></font>
     </div>
+    <div>
     <button id="buy">クッキー焼き機を購入(50枚)</button>
     <a>(クリック生成効率↑)</a>
     <div id="renji"></div>
@@ -26,8 +32,21 @@
         <a>(博士の自動生成効率↑)</a>
         <div id="smj"></div>
         </div>
-    <div id="sec"></div>
+    <div id="sec" style="margin-top:40px;"></div>
+    </div>
+    <div>
+        <p>テスト用div</p>
+        <p>ここで何か買えるようにしたい</p>
+        <p>めんどい</p>
+    </div>
+    </div>
     <script>
+        document.onkeypress = enterForbidden;
+        function enterForbidden(){
+        if(window.event.keyCode == 13){
+            return false;
+        }
+        }
         var renjiNum=0;
         var hakaseNum=0;
         var smjNum=0;
@@ -35,15 +54,20 @@
         var hakasePrice=50;
         var smjPrice=50;
         var sec =0;
-        const b1= document.getElementById("cre");
+        const cre= document.getElementById("cre");
         const DOMsec= document.getElementById("sec");
         const buy= document.getElementById("buy");
         const result = document.getElementById("result");
+        const infoCkick =document.getElementById("infoClick");
+        const infoAuto =document.getElementById("infoAuto");
         var sum =20000;
         const number = document.getElementById("creNum");
         cre.x=1;
         number.textContent=cre.x;
-        cre.addEventListener("click",()=>{
+        cre.addEventListener("click",function(event){
+            if (event.keyCode === 13) {
+                return false;
+            }
             sum += cre.x;
             result.textContent=`×${sum}枚`;
         });
@@ -55,14 +79,15 @@
             renjiPrice =50*(renjiNum+1)*(renjiNum+1);
 
             buy.textContent=`クッキー焼き機を購入(${renjiPrice}枚)`
-        number.textContent=b1.x;
+        number.textContent=cre.x;
             result.textContent=`×${sum}枚`;
         let renji_img=document.createElement("img");
         const renji=document.getElementById("renji");
         renji_img.src="images/oven_renji.png";
-        renji_img.style="width:100px";
-        renji_img.style="height:100px";
+        renji_img.style="width:50px";
+        renji_img.style="height:50px";
         renji.append(renji_img);
+        infoCkick.textContent=`(${cre.x}枚/クリック)　`
         }
         });
         buy2.addEventListener("click",()=>{
@@ -72,14 +97,15 @@
             hakasePrice =50*(hakaseNum+1)*(hakaseNum+1);
 
             buy2.textContent=`博士を購入(${hakasePrice}枚)`
-        number.textContent=b1.x;
+        number.textContent=cre.x;
             result.textContent=`×${sum}枚`;
         let hakase_img=document.createElement("img");
         const hakase=document.getElementById("hakase");
         hakase_img.src="images/hakase1_smile.png";
-        hakase_img.style="width:100px";
-        hakase_img.style="height:100px";
+        hakase_img.style="width:50px";
+        hakase_img.style="height:50px";
         hakase.append(hakase_img);
+        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/秒)`
         }
         });
         buy3.addEventListener("click",()=>{
@@ -89,14 +115,15 @@
             smjPrice =10000*(smjNum+1)*(smjNum+1);
 
             buy3.textContent=`女王様を購入(${smjPrice}枚)`
-        number.textContent=b1.x;
+        number.textContent=cre.x;
             result.textContent=`×${sum}枚`;
         let smj_img=document.createElement("img");
         const smj=document.getElementById("smj");
         smj_img.src="images/smj.png";
-        smj_img.style="width:100px";
-        smj_img.style="height:100px";
+        smj_img.style="width:50px";
+        smj_img.style="height:50px";
         smj.append(smj_img);
+        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/秒)`
         }
         });
         const countSec=()=>{
