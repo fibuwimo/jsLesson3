@@ -22,20 +22,19 @@
     </div>
     <div>
     <button id="buy"style="width:200px;height:50px;" >オーブンを購入(3枚)</button>
-    <a>(クリック生成量↑)</a>
-    <div id="renji"></div>
+    <a>(クリック生産量↑)</a>
     </div>
     <div>
     <button id="buy2"style="width:200px;height:50px;" >博士を購入(5枚)</button>
-    <a>(クッキー自動生成)</a>
-    <div id="hakase"></div>
+    <a>(自動生産量↑)</a>
     </div>
     <div>
-        <button id="buy3" style="width:200px;height:50px;">女王様を購入(3000枚)</button>
-        <a>(博士の自動生成効率↑)</a>
-        <div id="smj"></div>
+        <button id="buy3" style="width:200px;height:50px;">ラボを増築(3000枚)</button>
+        <a>(博士の自動生産量↑)</a>
         </div>
-    <div id="sec"></div>
+    <div id="renji"></div>
+    <div id="hakase"></div>
+        <div id="smj"></div>
     </div>
     <div style="width:230px; margin-left:20px;">
         <img  id="gImage" src="images/gachagacha.png" width="150px" height="200px" alt="ガチャ" />
@@ -49,9 +48,15 @@
         <img src="images/cookie_kata.png" width="40px" height="40px"/>
         <font size="3"><span id="gInfo">金型、所謂ハズレ。クリック生産量ちょっと上昇。</span></font><br> 
         <img src="images/building_koujou_entotsu.png" width="40px" height="40px"/>
-        <font size="3"><span id="gInfo">工場。10秒ごとに生産、奴隷が必要。</span></font><br>
+        <font size="3"><span id="gInfo">工場、ブラック。10秒ごとに生産、奴隷が必要。</span></font><br>
+        <img src="images/kaisya_desk1_syachou_young_man.png" width="40px" height="40px"/>
+        <font size="3"><span id="gInfo">シャッチョ、ブラック。90秒ごとに工場を作る。</span></font><br>  
         <img src="images/dorei_kyousei_roudou.png" width="40px" height="40px"/>
         <font size="3"><span id="gInfo">奴隷、辞めたい。10秒ごとに生産、工場が必要。</span></font><br>  
+        <img src="images/kurufuku_man.png" width="30px" height="40px"/>
+        <font size="3"><span id="gInfo">転〇エージェント。90秒ごとに奴隷を連れてくる。</span></font><br>  
+        <img src="images/queen.png" width="30px" height="40px"/>
+        <font size="3"><span id="gInfo">女王様、鞭はお手製。博士の自動生産量上昇。</span></font><br>  
         <img src="images/kaichu_dokei.png" width="40px" height="40px"/>
         <font size="3"><span id="gInfo">懐中時計……ぽいナニか。博士の生産速度上昇。</span></font><br>  
         <img src="images/computer_mouse_double_click.png" width="30px" height="40px"/>
@@ -98,8 +103,14 @@
             "idol_woman3.png",
             "idol_woman4.png",
             "idol_woman5.png",
+            "kurufuku_man.png",
+            "kaisya_desk1_syachou_young_man.png",
+            "queen.png",
         ];
         const gachaHaving=[
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -143,8 +154,8 @@
         let renji_img=document.createElement("img");
         const renji=document.getElementById("renji");
         renji_img.src="images/oven_renji.png";
-        renji_img.style="width:50px";
-        renji_img.style="height:50px";
+        renji_img.style="width:30px";
+        renji_img.style="height:30px";
         renji.append(renji_img);
         infoCkick.textContent=`(${cre.x*(gachaHaving[4]+1)}枚/クリック)`
         }
@@ -160,10 +171,10 @@
         let hakase_img=document.createElement("img");
         const hakase=document.getElementById("hakase");
         hakase_img.src="images/hakase1_smile.png";
-        hakase_img.style="width:50px";
-        hakase_img.style="height:50px";
+        hakase_img.style="width:30px";
+        hakase_img.style="height:30px";
         hakase.append(hakase_img);
-        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
+        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
         }
         });
         buy3.addEventListener("click",()=>{
@@ -172,22 +183,22 @@
             sum -=smjPrice;
             smjPrice =3000*(smjNum+1)*(smjNum+1);
 
-            buy3.textContent=`女王様を購入(${smjPrice}枚)`
+            buy3.textContent=`ラボを増築(${smjPrice}枚)`
             result.textContent=`×${sum}枚`;
         let smj_img=document.createElement("img");
         const smj=document.getElementById("smj");
-        smj_img.src="images/smj.png";
-        smj_img.style="width:50px";
-        smj_img.style="height:50px";
+        smj_img.src="images/smj.jpg";
+        smj_img.style="width:30px";
+        smj_img.style="height:30px";
         smj.append(smj_img);
-        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
+        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
         }
         });
         buy4.addEventListener("click",()=>{
-            if(sum<1000*gachaCount)return
-            sum -=1000*gachaCount
+            if(sum<100*gachaCount*gachaCount)return
+            sum -=100*gachaCount*gachaCount
             gachaCount++;
-            buy4.textContent=`ガチャ(${1000*gachaCount}枚)`
+            buy4.textContent=`ガチャ(${100*gachaCount*gachaCount}枚)`
                 result.textContent=`×${sum}枚`;
                 let idx=Math.floor(Math.random() *(gachaHaving.length))
                 gachaHaving[idx]+=1;
@@ -198,16 +209,16 @@
                         number.textContent=cre.x*(gachaHaving[4]+1);
                         break;
                     case 1:
-                        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*500}枚/10秒)`
+                        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
                         break;
                     case 2:
-                        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*500}枚/10秒)`
+                        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
                         break;
                     case 3:
-                        hakaseInterval = 1000*(Math.pow(0.95,gachaHaving[3]));
+                        hakaseInterval = 1000*(Math.pow(0.8,gachaHaving[3]));
                         clearInterval(timeId);
                         timeId=setInterval(hakaseWork,hakaseInterval);
-                        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
+                        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
                         break;
                     case 4:
                         infoCkick.textContent=`(${cre.x*(gachaHaving[4]+1)}枚/クリック)`
@@ -233,13 +244,22 @@
                         infoIdol.textContent=`(${gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300}枚/60秒)`
                     }
                     break;
+                    case 10:
+                        setInterval(yakuzaWork,90000);
+                        break;
+                    case 11:
+                        setInterval(shyachoWork,90000);
+                        break;
+                        case 12:
+                        infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
+                            break;
                 }
         let gacha_img=document.createElement("img");
         const gacha=document.getElementById("gacha");
         gacha_img.src=`images/${gachaImgs[idx]}`;
         gacha_img.style="width:50px";
         gacha_img.style="height:50px";
-        gacha.append(gacha_img);
+        gacha.prepend(gacha_img);
             
         });
         const countSec=()=>{
@@ -249,14 +269,12 @@
         setInterval(countSec,1000);
 
         const hakaseWork=()=>{
-            console.log(gachaHaving[3]);
-            console.log(hakaseInterval)
-            sum +=hakaseNum*3*(smjNum+1);
+            sum +=hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1);
             result.textContent=`×${sum}枚`;
         }
         timeId=setInterval(hakaseWork,hakaseInterval);
         const factWork=()=>{
-            sum +=gachaHaving[1]*gachaHaving[2]*500;
+            sum +=gachaHaving[1]*gachaHaving[2]*300;
             result.textContent=`×${sum}枚`;
         }
         setInterval(factWork,10000);
@@ -269,6 +287,26 @@
             result.textContent=`×${sum}枚`;
         }
         setInterval(idolWork,60000);
+        const yakuzaWork=()=>{
+        let gacha_img=document.createElement("img");
+        const gacha=document.getElementById("gacha");
+        gacha_img.src=`images/${gachaImgs[2]}`;
+        gacha_img.style="width:50px";
+        gacha_img.style="height:50px";
+        gachaHaving[2]++;
+        gacha.prepend(gacha_img);
+        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
+        }
+        const shyachoWork=()=>{
+        let gacha_img=document.createElement("img");
+        const gacha=document.getElementById("gacha");
+        gacha_img.src=`images/${gachaImgs[1]}`;
+        gacha_img.style="width:50px";
+        gacha_img.style="height:50px";
+        gachaHaving[1]++;
+        gacha.prepend(gacha_img);
+        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
+        }
     </script>
     
 </body>
