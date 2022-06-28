@@ -7,11 +7,18 @@
     <title>くっきいくりっかあ</title>
 </head>
 <body style="background-image:url(images/b011.jpg)">
-    <div style="display:flex; margin-top:30px; justify-content: center;">
+    <div>
+        <div>
+        <font size="5"><span id="totalDOM">生産総計:0枚</span></font>
+        </div>
+        <div id="plate">
+        </div>
+        </div>
+    <div style="display:flex; margin-top:30px; justify-content:center">
     <div style="width:400px;">
     <div style="margin-bottom:20px;">
     <img  id="cImage" src="images/sweets_cookie.png" width="100px" height="100px" alt="クッキー" />
-    <font size="6"><span id="result">×0</span></font>
+    <font size="6"><span id="result">×0枚</span></font>
     <br>
     <font size="4"><span id="infoClick">(1枚/クリック)</span></font>
     <font size="4"><span id="infoAuto"></span></font><br>
@@ -25,7 +32,7 @@
     <a>(クリック生産量↑)</a>
     </div>
     <div>
-    <button id="buy2"style="width:200px;height:50px;" >博士を購入(5枚)</button>
+    <button id="buy2"style="width:200px;height:50px;" >博士を雇用(5枚)</button>
     <a>(自動生産量↑)</a>
     </div>
     <div>
@@ -36,7 +43,7 @@
     <div id="hakase"></div>
         <div id="smj"></div>
     </div>
-    <div style="width:230px; margin-left:20px;">
+    <div style="width:300px; margin-left:20px;">
         <img  id="gImage" src="images/gachagacha.png" width="150px" height="200px" alt="ガチャ" />
     <div>
         <button id="buy4" style="width:200px;height:50px;">初回無料ガチャ(無料)</button>
@@ -92,6 +99,24 @@
         let timeId;
         let gachaCount=0;
         let isIdols=false;
+        let isiti=false;
+        let isitiman=false;
+        let ismilion=false;
+        let isoku=false;
+        let isrun=false;
+        let istoki=false;
+        let issubaun=false;
+        let isken=false;
+        let isccri=false;
+        let ishakaai=false;
+        let ismusume=false;
+        let isoba=false;
+        let isjyuu=false;
+        let ismosi=false;
+        let isnii=false;
+        let israbo=false;
+        let isdona=false;
+        let criCount=0;
         const gachaImgs =[
             "cookie_kata.png",
             "building_koujou_entotsu.png",
@@ -126,10 +151,13 @@
         const DOMsec= document.getElementById("sec");
         const buy= document.getElementById("buy");
         const result = document.getElementById("result");
+        const totalDOM = document.getElementById("totalDOM");
         const infoCkick =document.getElementById("infoClick");
         const infoAuto =document.getElementById("infoAuto");
         const infoFact =document.getElementById("infoFact");
+        const plate=document.getElementById("plate");
         var sum =0;
+        var total=0;
         let hakaseInterval=1000;
         const number = document.getElementById("creNum");
         cre.x=1;
@@ -138,12 +166,47 @@
             if (event.keyCode === 13) {
                 return false;
             }
+            criCount++;
+            if(criCount>=100 && !isken){
+                isken=true;
+                appendPlate("ken.png");
+            }
+            if(criCount>=1000 && !isccri){
+                isccri=true;
+                appendPlate("ccri.png");
+            }
             sum += cre.x*(gachaHaving[4]+1);
+            total += cre.x*(gachaHaving[4]+1);
             result.textContent=`×${sum}枚`;
+            totalDOM.textContent=`生産総計:${total}枚`;
+            if(total>=1 && !isiti){
+                isiti=true;
+                appendPlate("iti.png");
+            }
+            if(total>=10000 && !isitiman){
+                isitiman=true;
+                appendPlate("itiman.png");
+            }
+            if(total>=1000000 && !ismilion){
+                ismilion=true;
+                appendPlate("milion.png");
+            }
+            if(total>=100000000 && !isoku){
+                isoku=true;
+                appendPlate("oku.png");
+            }
         });
         buy.addEventListener("click",()=>{
         if(sum>=renjiPrice){
             renjiNum +=1;
+            if(renjiNum>=10 && !ismusume){
+                ismusume=true;
+                appendPlate("musume.png");
+            }
+            if(renjiNum>=100 && !isoba){
+                isoba=true;
+                appendPlate("oba.png");
+            }
             sum -=renjiPrice;
             cre.x +=3;
             renjiPrice =3*(renjiNum+1)*(renjiNum+1);
@@ -163,10 +226,18 @@
         buy2.addEventListener("click",()=>{
         if(sum>=hakasePrice){
             hakaseNum +=1;
+            if(hakaseNum>=10 && !isjyuu){
+                isjyuu=true;
+                appendPlate("jyuu.png");
+            }
+            if(hakaseNum>=100 && !ismosi){
+                ismosi=true;
+                appendPlate("mosi.png");
+            }
             sum -=hakasePrice;
             hakasePrice =5*(hakaseNum+1)*(hakaseNum+1);
 
-            buy2.textContent=`博士を購入(${hakasePrice}枚)`
+            buy2.textContent=`博士を雇用(${hakasePrice}枚)`
             result.textContent=`×${sum}枚`;
         let hakase_img=document.createElement("img");
         const hakase=document.getElementById("hakase");
@@ -180,6 +251,14 @@
         buy3.addEventListener("click",()=>{
         if(sum>=smjPrice){
             smjNum +=1;
+            if(smjNum>=5 && !isnii){
+                isnii=true;
+                appendPlate("nii.png");
+            }
+            if(smjNum>=20 && !israbo){
+                israbo=true;
+                appendPlate("rabo.png");
+            }
             sum -=smjPrice;
             smjPrice =3000*(smjNum+1)*(smjNum+1);
 
@@ -207,11 +286,21 @@
                         cre.x++;
                         infoCkick.textContent=`(${cre.x*(gachaHaving[4]+1)}枚/クリック)`
                         number.textContent=cre.x*(gachaHaving[4]+1);
-                        break;
-                    case 1:
-                        infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
+                        if(gachaHaving[0]>=5 && !issubaun){
+                            issubaun=true;
+                            appendPlate("subaun.png");
+                        }
                         break;
                     case 2:
+                        if(!isdona){
+                            isdona=true;
+                            appendPlate("dona.png");
+                        }
+                    case 1:
+                    if(gachaHaving[1]*gachaHaving[2]>0 && !isrun){
+                        isrun=true;
+                        appendPlate("run.png");
+                        }
                         infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
                         break;
                     case 3:
@@ -219,6 +308,10 @@
                         clearInterval(timeId);
                         timeId=setInterval(hakaseWork,hakaseInterval);
                         infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
+                        if(!istoki){
+                            istoki=true;
+                            appendPlate("toki.png");
+                        }
                         break;
                     case 4:
                         infoCkick.textContent=`(${cre.x*(gachaHaving[4]+1)}枚/クリック)`
@@ -240,6 +333,11 @@
                          idols_img.style="width:200px";
                          idols_img.style="height:120px";
                          idols.append(idols_img);
+                         let unit_img=document.createElement("img");
+                         unit_img.src="images/unit.png";
+                         unit_img.style="width:50px";
+                         unit_img.style="height:40px";
+                         plate.append(unit_img);
                     }else{
                         infoIdol.textContent=`(${gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300}枚/60秒)`
                     }
@@ -251,6 +349,10 @@
                         setInterval(shyachoWork,90000);
                         break;
                         case 12:
+                        if(!ishakaai){
+                            ishakaai=true;
+                            appendPlate("hakaai.png");
+                        }
                         infoAuto.textContent=`(${hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1)}枚/${Math.floor(hakaseInterval)/1000}秒)`
                             break;
                 }
@@ -270,21 +372,64 @@
 
         const hakaseWork=()=>{
             sum +=hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1);
+            total +=hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1);
             result.textContent=`×${sum}枚`;
+            totalDOM.textContent=`生産総計:${total}枚`;
+            if(total>=10000 && !isitiman){
+                isitiman=true;
+                appendPlate("itiman.png");
+            }
+            if(total>=1000000 && !ismilion){
+                ismilion=true;
+                appendPlate("milion.png");
+            }
+            if(total>=100000000 && !isoku){
+                isoku=true;
+                appendPlate("oku.png");
+            }
         }
         timeId=setInterval(hakaseWork,hakaseInterval);
         const factWork=()=>{
             sum +=gachaHaving[1]*gachaHaving[2]*300;
+            total +=gachaHaving[1]*gachaHaving[2]*300;
             result.textContent=`×${sum}枚`;
+            totalDOM.textContent=`生産総計:${total}枚`;
+            if(total>=10000 && !isitiman){
+                isitiman=true;
+                appendPlate("itiman.png");
+            }
+            if(total>=1000000 && !ismilion){
+                ismilion=true;
+                appendPlate("milion.png");
+            }
+            if(total>=100000000 && !isoku){
+                isoku=true;
+                appendPlate("oku.png");
+            }
         }
         setInterval(factWork,10000);
         const idolWork=()=>{
             if(gachaHaving[5]&&gachaHaving[6]&&gachaHaving[7]&&gachaHaving[8]&&gachaHaving[9]){
                 sum +=gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300+100000;
+                total +=gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300+100000;
             }else{
                 sum +=gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300;
+                total +=gachaHaving[5]*2200+gachaHaving[6]*2900+gachaHaving[7]*3000+gachaHaving[8]*2500+gachaHaving[9]*2300;
             }
             result.textContent=`×${sum}枚`;
+            totalDOM.textContent=`生産総計:${total}枚`;
+            if(total>=10000 && !isitiman){
+                isitiman=true;
+                appendPlate("itiman.png");
+            }
+            if(total>=1000000 && !ismilion){
+                ismilion=true;
+                appendPlate("milion.png");
+            }
+            if(total>=100000000 && !isoku){
+                isoku=true;
+                appendPlate("oku.png");
+            }
         }
         setInterval(idolWork,60000);
         const yakuzaWork=()=>{
@@ -294,6 +439,14 @@
         gacha_img.style="width:50px";
         gacha_img.style="height:50px";
         gachaHaving[2]++;
+        if(!isdona){
+            isdona=true;
+            appendPlate("dona.png");
+        }
+        if(gachaHaving[1]*gachaHaving[2]>0 && !isrun){
+            isrun=true;
+            appendPlate("run.png");
+        }        
         gacha.prepend(gacha_img);
         infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
         }
@@ -304,8 +457,19 @@
         gacha_img.style="width:50px";
         gacha_img.style="height:50px";
         gachaHaving[1]++;
+        if(gachaHaving[1]*gachaHaving[2]>0 && !isrun){
+            isrun=true;
+            appendPlate("run.png");
+        }   
         gacha.prepend(gacha_img);
         infoFact.textContent=`(${gachaHaving[1]*gachaHaving[2]*300}枚/10秒)`
+        }
+        const appendPlate=(pName)=>{
+            let plate_img=document.createElement("img");
+                         plate_img.src=`images/${pName}`;
+                         plate_img.style="width:50px";
+                         plate_img.style="height:40px";
+                         plate.append(plate_img);
         }
     </script>
     
