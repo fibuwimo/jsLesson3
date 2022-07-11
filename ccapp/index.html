@@ -7,14 +7,20 @@
     <title>くっきいくりっかあ</title>
 </head>
 <body style="background-image:url(images/b011.jpg)">
-    <div>
+    <div style= "display:flex; margin-top:5px; justify-content: center;">
+        <div><img  id="logoImage" src="images/syougeki.png" width="250px" height="100px" alt="ロゴ" /></div>
+        <div><img  id="logoImage2" src="images/hakase1_smile.png" width="90px" height="90px" alt="はかせ" /></div>
+        <div id="fukidashi" style="width:800px;height:100px;background-size: 100% 150%; background-image:url(images/fukidashi.png); background-position: right  35px bottom -12px;">
+            <font size="5"><p id="say" style="text-align: center;">クッキーを作ってひと儲けするぞい！</p></font>
+        </div>
+    </div>
+    <div style="display:flex; margin-top:10px; justify-content:center">
+    <div style="width:400px; margin-right:20px; background-image:url(images/b126.jpg);">
         <div>
         <font size="5"><span id="totalDOM">生産総計:0枚</span></font>
         </div>
-        <div id="plate">
-        </div>
-        </div>
-    <div style="display:flex; margin-top:30px; justify-content:center">
+        <div id="plate"></div>
+    </div>
     <div style="width:400px;">
     <div style="margin-bottom:20px;">
     <img  id="cImage" src="images/sweets_cookie.png" width="100px" height="100px" alt="クッキー" />
@@ -46,7 +52,7 @@
     <div style="width:300px; margin-left:20px;">
         <img  id="gImage" src="images/gachagacha.png" width="150px" height="200px" alt="ガチャ" />
     <div>
-        <button id="buy4" style="width:200px;height:50px;">初回無料ガチャ(無料)</button>
+        <button id="buy4" style="width:230px;height:50px;">初回無料ガチャ(無料)</button>
         <div id="idols" style="margin-top:20px;"></div>
         <div id="gacha" style="margin-top:20px;"></div>
         </div>
@@ -102,6 +108,7 @@
         let isiti=false;
         let isitiman=false;
         let ismilion=false;
+        let ispawa=false;
         let isoku=false;
         let isrun=false;
         let istoki=false;
@@ -156,6 +163,7 @@
         const infoAuto =document.getElementById("infoAuto");
         const infoFact =document.getElementById("infoFact");
         const plate=document.getElementById("plate");
+        const sayDOM=document.getElementById("say");
         var sum =0;
         var total=0;
         let hakaseInterval=1000;
@@ -183,18 +191,7 @@
                 isiti=true;
                 appendPlate("iti.png");
             }
-            if(total>=10000 && !isitiman){
-                isitiman=true;
-                appendPlate("itiman.png");
-            }
-            if(total>=1000000 && !ismilion){
-                ismilion=true;
-                appendPlate("milion.png");
-            }
-            if(total>=100000000 && !isoku){
-                isoku=true;
-                appendPlate("oku.png");
-            }
+            totalCheck();
         });
         buy.addEventListener("click",()=>{
         if(sum>=renjiPrice){
@@ -375,18 +372,7 @@
             total +=hakaseNum*3*(smjNum+1)*(gachaHaving[12]+1);
             result.textContent=`×${sum}枚`;
             totalDOM.textContent=`生産総計:${total}枚`;
-            if(total>=10000 && !isitiman){
-                isitiman=true;
-                appendPlate("itiman.png");
-            }
-            if(total>=1000000 && !ismilion){
-                ismilion=true;
-                appendPlate("milion.png");
-            }
-            if(total>=100000000 && !isoku){
-                isoku=true;
-                appendPlate("oku.png");
-            }
+            totalCheck();
         }
         timeId=setInterval(hakaseWork,hakaseInterval);
         const factWork=()=>{
@@ -394,18 +380,7 @@
             total +=gachaHaving[1]*gachaHaving[2]*300;
             result.textContent=`×${sum}枚`;
             totalDOM.textContent=`生産総計:${total}枚`;
-            if(total>=10000 && !isitiman){
-                isitiman=true;
-                appendPlate("itiman.png");
-            }
-            if(total>=1000000 && !ismilion){
-                ismilion=true;
-                appendPlate("milion.png");
-            }
-            if(total>=100000000 && !isoku){
-                isoku=true;
-                appendPlate("oku.png");
-            }
+            totalCheck();
         }
         setInterval(factWork,10000);
         const idolWork=()=>{
@@ -418,18 +393,7 @@
             }
             result.textContent=`×${sum}枚`;
             totalDOM.textContent=`生産総計:${total}枚`;
-            if(total>=10000 && !isitiman){
-                isitiman=true;
-                appendPlate("itiman.png");
-            }
-            if(total>=1000000 && !ismilion){
-                ismilion=true;
-                appendPlate("milion.png");
-            }
-            if(total>=100000000 && !isoku){
-                isoku=true;
-                appendPlate("oku.png");
-            }
+            totalCheck();
         }
         setInterval(idolWork,60000);
         const yakuzaWork=()=>{
@@ -471,6 +435,55 @@
                          plate_img.style="height:40px";
                          plate.append(plate_img);
         }
+        const totalCheck=()=>{
+            if(total>=10000 && !isitiman){
+                isitiman=true;
+                appendPlate("itiman.png");
+            }
+            if(total>=1000000 && !ismilion){
+                ismilion=true;
+                appendPlate("milion.png");
+            }
+            if(total>=10000000 && !ispawa){
+                ispawa=true;
+                appendPlate("pawa.png");
+            }
+            if(total>=100000000 && !isoku){
+                isoku=true;
+                appendPlate("oku.png");
+            }
+        }
+        const say=()=>{
+            let says=[
+                ["アイドルよりも女王様をお迎えしたいのう……"],
+                ["工場は奴隷を装備しないと意味がないぞい"],
+                ["ラボが増えると研究がやりやすいんじゃが……"],
+                ["懐中時計をキメるとハイになれるんじゃ!"],
+                ["ワシの頭の中の消しゴムはF5で使えるぞい"],
+                ["不労所得クッキーで暮らしたいのう……"],
+                ["…………疲れたのう。"],
+                ["クッキーの転売を始めようかのう……"],
+                ["連打！連打！連打じゃ！"],
+                ["奴隷兵は畑から採れるんじゃ"],
+                ["ハカセが無双するラノベは無いかのう？"],
+                ["クッキーは何処から来て何処へ行くのか……"],
+                ["ワシが死んでも代わりはいるんじゃ"],
+                ["クッキーは……命より重い……ッ！！"],
+                ["ﾍﾟﾛｯ……これは薄力粉じゃ！"],
+                ["ガチャにゴミを混ぜたのは誰じゃ！"],
+                ["生産量向上心の無い者は馬鹿じゃ"],
+                ["ワシはクッキーになりたい"],
+                ["博士号に意味など無いぞい"],
+                [""],
+                [""],
+                [""],
+                [""],
+            ]
+            let sayNum=Math.floor(Math.random() *(says.length));
+            sayDOM.textContent=`${says[sayNum]}`;
+        }
+        setInterval(say,15000);
+
     </script>
     
 </body>
